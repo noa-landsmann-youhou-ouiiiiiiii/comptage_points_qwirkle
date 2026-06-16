@@ -120,3 +120,16 @@ entry_score_joueur.bind("<Return>", ajout_score)
 entry_score_joueur.pack()
 
 boucle_principale.mainloop()
+
+score_totaux_joueurs = [
+    [sum(tableau_score_joueur[i])] for i in range(len(tableau_nom_joueurs))
+]
+
+if len(tableau_nom_joueurs) == 1:
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :{tableau_nom_joueurs[0]}")
+elif len(tableau_nom_joueurs) == 2:
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}")
+elif len(tableau_nom_joueurs) == 3:
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}")
+else:
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}\nEt les autres, on s'en fiche...")
