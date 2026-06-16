@@ -119,6 +119,7 @@ entry_score_joueur.pack()
 boucle_principale.mainloop()
 
 score_totaux_joueurs = [sum(tableau_score_joueur[i]) for i in range(len(tableau_nom_joueurs))]
+score_totaux_joueurs[len(nom_introuvable)] += 6
 
 if len(tableau_nom_joueurs) == 1:
     messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{score_totaux_joueurs[0]}")
