@@ -124,8 +124,8 @@ score_totaux_joueurs[len(nom_introuvable)] += 6
 if len(tableau_nom_joueurs) == 1:
     messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{score_totaux_joueurs[0]}")
 elif len(tableau_nom_joueurs) == 2:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]},\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}")
 elif len(tableau_nom_joueurs) == 3:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]},\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]},\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}")
 else:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}\nEt les autres, on s'en fiche...")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]},\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]},\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]},\nEt les autres, on s'en fiche...")
