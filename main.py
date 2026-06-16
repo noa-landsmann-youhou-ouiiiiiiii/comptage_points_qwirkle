@@ -94,22 +94,26 @@ tableau_score_score_total_joueur = [
     []
 ]
 
+tableau_label_joueur = []
+
 for i in tableau_nom_joueurs:
     frame_i = Frame(frame_principale)
     frame_i.pack(fill="x")
-    label_i = Label(frame_i, text=i, font=("", 10))
-    label_i.pack(side="left")
+    label_nom_joueur = Label(frame_i, text=i, font=("", 10))
+    label_nom_joueur.pack(side="left")
     frame_score_i = Frame(frame_i)
-    frame_score_i.pack(fill="x", padx=2, side="left")
+    frame_score_i.pack(fill="x", padx=5, side="left")
     label_score_total_i = Label(frame_i, text=0, font=("bold", 10))
     label_score_total_i.pack(side="right")
     tableau_score_score_total_joueur[0].append(frame_score_i)
     tableau_score_score_total_joueur[1].append(label_score_total_i)
+    tableau_label_joueur.append(label_nom_joueur)
 
 bouton_arret_jeu = Button(boucle_principale, text="Terminer la partie et afficher les résultats...", fg="white", bg="red", command=boucle_principale.destroy)
 bouton_arret_jeu.pack(padx=5, pady=5, side="bottom")
 
 messagebox.showinfo("Début du jeu",f"C'est à {tableau_nom_joueurs[0]} de jouer !")
+tableau_label_joueur[0].config(fg="red")
 
 entry_score_joueur = Entry(boucle_principale)
 entry_score_joueur.bind("<Return>", ajout_score)
