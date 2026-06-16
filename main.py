@@ -126,7 +126,7 @@ score_totaux_joueurs = [
 ]
 
 if len(tableau_nom_joueurs) == 1:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :{tableau_nom_joueurs[0]}")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :{tableau_score_joueur[0]}")
 elif len(tableau_nom_joueurs) == 2:
     messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}")
 elif len(tableau_nom_joueurs) == 3:
