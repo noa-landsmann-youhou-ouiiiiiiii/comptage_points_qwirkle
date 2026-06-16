@@ -33,9 +33,6 @@ def ajout_score(*args):
         messagebox.showinfo("", f"C'est à {tableau_nom_joueurs[len(nom_introuvable)]} de jouer !")
     tableau_label_joueur[len(nom_introuvable)-1].config(fg="black")
     tableau_label_joueur[len(nom_introuvable)].config(fg="red")
-    if len(tableau_score_score_total_joueur[0]) == len(nom_introuvable):
-        nom_introuvable.clear()
-        nom_introuvable.append(0)
     print(len(nom_introuvable))
 
 tableau_nombre_joueurs = [0]
@@ -121,15 +118,13 @@ entry_score_joueur.pack()
 
 boucle_principale.mainloop()
 
-score_totaux_joueurs = [
-    [sum(tableau_score_joueur[i])] for i in range(len(tableau_nom_joueurs))
-]
+score_totaux_joueurs = [sum(tableau_score_joueur[i]) for i in range(len(tableau_nom_joueurs))]
 
 if len(tableau_nom_joueurs) == 1:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{tableau_score_joueur[0]}")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{score_totaux_joueurs[0]}")
 elif len(tableau_nom_joueurs) == 2:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {sorted(score_totaux_joueurs)[-1]}\n{tableau_nom_joueurs[1]} : {sorted(score_totaux_joueurs)[-2]}")
 elif len(tableau_nom_joueurs) == 3:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {sorted(score_totaux_joueurs)[-1]}\n{tableau_nom_joueurs[1]} : {sorted(score_totaux_joueurs)[-2]}\n{tableau_nom_joueurs[2]} : {sorted(score_totaux_joueurs)[-3]}")
 else:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :{tableau_nom_joueurs[0]} : {score_totaux_joueurs[0]}\n{tableau_nom_joueurs[1]} : {score_totaux_joueurs[1]}\n{tableau_nom_joueurs[2]} : {score_totaux_joueurs[2]}\nEt les autres, on s'en fiche...")
+    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {sorted(score_totaux_joueurs)[-1]}\n{tableau_nom_joueurs[1]} : {sorted(score_totaux_joueurs)[-2]}\n{tableau_nom_joueurs[2]} : {sorted(score_totaux_joueurs)[-3]}\nEt les autres, on s'en fiche...")
