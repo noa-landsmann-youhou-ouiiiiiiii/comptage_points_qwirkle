@@ -31,6 +31,8 @@ def ajout_score(*args):
     except IndexError:
         nom_introuvable.clear()
         messagebox.showinfo("", f"C'est à {tableau_nom_joueurs[len(nom_introuvable)]} de jouer !")
+    tableau_label_joueur[len(nom_introuvable)-1].config(fg="black")
+    tableau_label_joueur[len(nom_introuvable)].config(fg="red")
     if len(tableau_score_score_total_joueur[0]) == len(nom_introuvable):
         nom_introuvable.clear()
         nom_introuvable.append(0)
