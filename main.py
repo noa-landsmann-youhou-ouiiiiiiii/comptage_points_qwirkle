@@ -3,28 +3,29 @@ from tkinter import messagebox
 
 def creation_joueurs(*args):
     try:
-        if nombre_joueurs_entry.get() and not nombre_joueurs_entry.get().isspace():
+        if int(nombre_joueurs_entry.get()) and not nombre_joueurs_entry.get().isspace():
             tableau_nombre_joueurs.pop()
             for i in range(int(nombre_joueurs_entry.get())):
                 tableau_nombre_joueurs.append(i+1)
             print(tableau_nombre_joueurs)
             fenetre_nombre_joueurs.destroy()
-    except ValueError:
-        pass
+    except Exception:
+        nombre_joueurs_entry.delete(0, "end")
 
 def fonction_nom_joueurs(*args):
-    if int(nombre_joueurs_entry.get()):
-        nouveau_joueur_label = Label(fenetre_nom_joueurs, text=f"Joueur {len(compteur)+1} : {str(nom_joueurs_entry.get())}")
-        nouveau_joueur_label.pack(pady=5)
-        tableau_nom_joueurs.append(str(nom_joueurs_entry.get()))
-        nom_joueurs_entry.delete(0, END)
-        compteur.append(0)
-        if len(compteur) == len(tableau_nombre_joueurs):
-            nom_joueurs_entry.config(state="disabled")
-            fenetre_nom_joueurs.after(1500, fenetre_nom_joueurs.destroy)
-        print(tableau_nom_joueurs)
-    else:
-        nom_joueurs_entry.delete(0, "end")
+    chiffres = [f'{i}' for i in range(10)]
+    if not nom_joueurs_entry.get() in chiffres:
+        if nom_joueurs_entry.get() and not nom_joueurs_entry.get().isspace():
+            nouveau_joueur_label = Label(fenetre_nom_joueurs, text=f"Joueur {len(compteur)+1} : {nom_joueurs_entry.get()}")
+            nouveau_joueur_label.pack(pady=5)
+            tableau_nom_joueurs.append(str(nom_joueurs_entry.get()))
+            nom_joueurs_entry.delete(0, END)
+            compteur.append(0)
+            if len(compteur) == len(tableau_nombre_joueurs):
+                nom_joueurs_entry.config(state="disabled")
+                fenetre_nom_joueurs.after(1500, fenetre_nom_joueurs.destroy)
+            print(tableau_nom_joueurs)
+    nom_joueurs_entry.delete(0, "end")
 
 def ajout_score(*args):
     try:
@@ -45,6 +46,12 @@ def ajout_score(*args):
     except ValueError:
         label_erreur.config(text="erreur")
     entry_score_joueur.delete(0, "end")
+
+def arret_jeu():
+    try:
+        boucle_principale.destroy()
+    except TclError:
+        pass
 
 tableau_nombre_joueurs = [0]
 nombre_de_joueurs = int(tableau_nombre_joueurs[0])
@@ -120,7 +127,7 @@ for i in tableau_nom_joueurs:
 label_erreur = Label(boucle_principale, text="abc", fg="red")
 label_erreur.pack()
 
-bouton_arret_jeu = Button(boucle_principale, text="Terminer la partie et afficher les résultats...", fg="white", bg="red", command=boucle_principale.destroy)
+bouton_arret_jeu = Button(boucle_principale, text="Terminer la partie et afficher les résultats...", fg="white", bg="red", command=arret_jeu)
 bouton_arret_jeu.pack(padx=5, pady=5, side="bottom")
 
 messagebox.showinfo("Début du jeu",f"C'est à {tableau_nom_joueurs[0]} de jouer !")
@@ -131,15 +138,15 @@ entry_score_joueur.bind("<Return>", ajout_score)
 entry_score_joueur.pack()
 
 boucle_principale.mainloop()
+if arret_jeu:
+    score_totaux_joueurs_fin = [sum(tableau_score_joueur[i]) for i in range(len(tableau_nom_joueurs))]
+    score_totaux_joueurs_fin[len(joueur_a_qui_cest_le_tour_index)] += 6
 
-score_totaux_joueurs_fin = [sum(tableau_score_joueur[i]) for i in range(len(tableau_nom_joueurs))]
-score_totaux_joueurs_fin[len(joueur_a_qui_cest_le_tour_index)] += 6
-
-if len(tableau_nom_joueurs) == 1:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{score_totaux_joueurs_fin[0]}")
-elif len(tableau_nom_joueurs) == 2:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}")
-elif len(tableau_nom_joueurs) == 3:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}, {tableau_nom_joueurs[2]} : {score_totaux_joueurs_fin[2]}")
-else:
-    messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}, {tableau_nom_joueurs[2]} : {score_totaux_joueurs_fin[2]},\nEt les autres, on s'en fiche...")
+    if len(tableau_nom_joueurs) == 1:
+        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{score_totaux_joueurs_fin[0]}")
+    elif len(tableau_nom_joueurs) == 2:
+        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}")
+    elif len(tableau_nom_joueurs) == 3:
+        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}, {tableau_nom_joueurs[2]} : {score_totaux_joueurs_fin[2]}")
+    else:
+        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}, {tableau_nom_joueurs[2]} : {score_totaux_joueurs_fin[2]},\nEt les autres, on s'en fiche...")
