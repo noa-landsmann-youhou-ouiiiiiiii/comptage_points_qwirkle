@@ -30,6 +30,7 @@ def fonction_nom_joueurs(*args):
 def ajout_score(*args):
     try:
         if entry_score_joueur.get() and not entry_score_joueur.get().isspace():
+            label_erreur.config(text="")
             score_joueur = Label(tableau_score_score_total_joueur[0][len(joueur_a_qui_cest_le_tour_index)], text=int(entry_score_joueur.get()))
             score_joueur.pack(pady=1, side="left")
             tableau_score_joueur[len(joueur_a_qui_cest_le_tour_index)].append(int(entry_score_joueur.get()))
@@ -37,21 +38,25 @@ def ajout_score(*args):
             joueur_a_qui_cest_le_tour_index.append(0)
             try:
                 messagebox.showinfo("",f"C'est à {tableau_nom_joueurs[len(joueur_a_qui_cest_le_tour_index)]} de jouer !")
+                label_consigne.config(text=f"Rentrez le score fait par {tableau_nom_joueurs[len(joueur_a_qui_cest_le_tour_index)]} (Appuyez sur Entrée pour valider)")
             except IndexError:
                 joueur_a_qui_cest_le_tour_index.clear()
                 messagebox.showinfo("", f"C'est à {tableau_nom_joueurs[len(joueur_a_qui_cest_le_tour_index)]} de jouer !")
+                label_consigne.config(text=f"Rentrez le score fait par {tableau_nom_joueurs[len(joueur_a_qui_cest_le_tour_index)]} (Appuyez sur Entrée pour valider)")
             tableau_label_joueur[len(joueur_a_qui_cest_le_tour_index) - 1].config(fg="black")
             tableau_label_joueur[len(joueur_a_qui_cest_le_tour_index)].config(fg="red")
             print(len(joueur_a_qui_cest_le_tour_index))
     except ValueError:
-        label_erreur.config(text="erreur")
+        label_erreur.config(text="Erreur : veuillez rentrer uniquement des nombres")
     entry_score_joueur.delete(0, "end")
 
 def arret_jeu():
-    try:
+    boucle_principale.destroy()
+    return True
+    '''try:
         boucle_principale.destroy()
     except TclError:
-        pass
+        pass'''
 
 tableau_nombre_joueurs = [0]
 nombre_de_joueurs = int(tableau_nombre_joueurs[0])
@@ -124,11 +129,14 @@ for i in tableau_nom_joueurs:
     tableau_score_score_total_joueur[1].append(label_score_total_i)
     tableau_label_joueur.append(label_nom_joueur)
 
-label_erreur = Label(boucle_principale, text="abc", fg="red")
-label_erreur.pack()
+label_consigne = Label(boucle_principale, text=f"Rentrez le score fait par {tableau_nom_joueurs[0]} (Appuyez sur Entrée pour valider)", font=("Arial", 15))
+label_consigne.pack(padx=10)
+
+label_erreur = Label(boucle_principale, fg="red", font=("", 10))
+label_erreur.pack(padx=10)
 
 bouton_arret_jeu = Button(boucle_principale, text="Terminer la partie et afficher les résultats...", fg="white", bg="red", command=arret_jeu)
-bouton_arret_jeu.pack(padx=5, pady=5, side="bottom")
+bouton_arret_jeu.pack(padx=10, pady=10, side="bottom")
 
 messagebox.showinfo("Début du jeu",f"C'est à {tableau_nom_joueurs[0]} de jouer !")
 tableau_label_joueur[0].config(fg="red")
@@ -138,15 +146,11 @@ entry_score_joueur.bind("<Return>", ajout_score)
 entry_score_joueur.pack()
 
 boucle_principale.mainloop()
-if arret_jeu:
+if arret_jeu is True:
+    scores_fin = []
     score_totaux_joueurs_fin = [sum(tableau_score_joueur[i]) for i in range(len(tableau_nom_joueurs))]
-    score_totaux_joueurs_fin[len(joueur_a_qui_cest_le_tour_index)] += 6
-
-    if len(tableau_nom_joueurs) == 1:
-        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici votre score :\n{score_totaux_joueurs_fin[0]}")
-    elif len(tableau_nom_joueurs) == 2:
-        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}")
-    elif len(tableau_nom_joueurs) == 3:
-        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}, {tableau_nom_joueurs[2]} : {score_totaux_joueurs_fin[2]}")
-    else:
-        messagebox.showinfo("Fin de la partie",f"Félicitaions ! Voici les résultats :\n{tableau_nom_joueurs[0]} : {score_totaux_joueurs_fin[0]}, {tableau_nom_joueurs[1]} : {score_totaux_joueurs_fin[1]}, {tableau_nom_joueurs[2]} : {score_totaux_joueurs_fin[2]},\nEt les autres, on s'en fiche...")
+    for i in range(len(tableau_nom_joueurs)):
+        scores_fin.append(f"{tableau_nom_joueurs[i]} : {score_totaux_joueurs_fin[i]}")
+    messagebox.showinfo("Fin de la partie", f"Résultats :\n{'\n'.join(scores_fin)}")
+else:
+    pass
